@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>Visualização dos dados</title>
+        <title>Visualização dos dados de Áudio</title>
         <style>
             .data {
                 width: 100%;
@@ -15,10 +15,24 @@
         </style>
     </head>
     <body>
-        <h1>Conteudo do arquivo CSV</h1>
-        {% for table in tables %}
-            {{ table|safe }}
-        {% endfor %}
+        <h1>Conteúdo do arquivo de Áudio (.wav)</h1>
+        
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="file">Selecione um arquivo de áudio (.wav):</label>
+            <input type="file" id="file" name="file" accept=".wav" required>
+            <br><br>
+            <input type="submit" value="Enviar">
+        </form>
+        
+        {% if file_name %}
+            <h2>Arquivo enviado: {{ file_name }}</h2>
+            <!-- Aqui você pode adicionar um player de áudio para ouvir o arquivo enviado -->
+            <audio controls>
+                <source src="{{ file_url }}" type="audio/wav">
+                Seu navegador não suporta a reprodução de áudio.
+            </audio>
+        {% endif %}
+
         <br>
         <a href="/">Enviar outro arquivo</a>
     </body>
